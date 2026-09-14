@@ -1,19 +1,28 @@
-const tg = window.Telegram.WebApp;
-if (tg) { tg.ready(); tg.expand(); }
-
 // ============================================
 // ⚠️ НАСТРОЙКА
 // ============================================
-const TELEGRAM_USERNAME = 'pisdezix';
+// Вставь сюда СВОЮ ссылку — Telegram, WhatsApp, VK, почту.
+// Пример: 'https://t.me/pisdezix' или 'mailto:you@mail.com'
+const CONTACT_LINK = 'https://t.me/pisdezix';
 
 // ============================================
-// ОТКРЫТИЕ TELEGRAM
+// ПОДСТАВЛЯЕМ ССЫЛКУ ВО ВСЕ КНОПКИ
 // ============================================
-function openTelegram() {
-    const text = 'Здравствуйте! Хочу заказать сайт. Расскажите про цены и сроки.';
-    const url = 'https://t.me/' + TELEGRAM_USERNAME + '?text=' + encodeURIComponent(text);
-    if (tg) tg.openTelegramLink(url);
-    else window.open(url, '_blank');
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = ['headerBtn', 'heroBtn', 'priceBtn1', 'priceBtn2', 'priceBtn3', 'ctaBtn'];
+    buttons.forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.href = CONTACT_LINK;
+    });
+});
+
+// ============================================
+// TELEGRAM (если открыто внутри Telegram)
+// ============================================
+if (window.Telegram && window.Telegram.WebApp) {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
 }
 
 // ============================================
