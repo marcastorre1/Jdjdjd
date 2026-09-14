@@ -3,503 +3,610 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pitelicik — веб-разработка</title>
+    <title>pitelicik — создаю сайты</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: -apple-system, 'Inter', sans-serif;
-            background-color: var(--tg-theme-bg-color, #fff);
-            color: var(--tg-theme-text-color, #111);
-            padding-bottom: 90px;
+        :root {
+            --bg: #0a0a0f;
+            --card: #14141c;
+            --text: #f5f5fa;
+            --muted: #8a8a98;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --pink: #ec4899;
+            --border: rgba(139,92,246,0.18);
+            --border-soft: rgba(255,255,255,0.07);
         }
 
-        /* ШАПКА */
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding-bottom: 60px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ХЕДЕР */
         .header {
-            position: sticky; top: 0; z-index: 50;
-            background-color: var(--tg-theme-bg-color, #fff);
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            padding: 14px 16px;
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10,10,15,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 16px 20px;
             display: flex; align-items: center; justify-content: space-between;
         }
         .logo {
-            font-size: 18px; font-weight: 900;
-            letter-spacing: -0.8px; text-transform: lowercase;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .header-icons { display: flex; gap: 16px; align-items: center; }
-        .header-icons svg {
-            width: 22px; height: 22px;
-            stroke: var(--tg-theme-text-color, #111);
-            fill: none; stroke-width: 1.8;
+        .nav {
+            display: none;
+            gap: 24px;
+            font-size: 13px;
         }
-        .cart-icon-wrap { position: relative; cursor: pointer; }
-        .cart-badge {
-            position: absolute;
-            top: -6px; right: -8px;
-            background: #111; color: #fff;
-            font-size: 10px; font-weight: 700;
-            min-width: 16px; height: 16px;
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            padding: 0 4px;
+        .nav a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav a:hover { color: var(--accent-light); }
+        .header-btn {
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
         }
 
-        /* БАННЕР */
-        .hero { position: relative; margin-bottom: 28px; }
-        .hero img { width: 100%; height: 420px; object-fit: cover; display: block; }
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.1));
-            display: flex; align-items: flex-end; justify-content: center;
-            padding-bottom: 48px;
+        /* HERO */
+        .hero {
+            padding: 70px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
         }
-        .hero-text { text-align: center; color: #fff; padding: 0 20px; }
-        .hero-logo {
-            font-size: 40px; font-weight: 900;
-            letter-spacing: -2px; text-transform: lowercase;
-            margin-bottom: 6px;
-            text-shadow: 0 2px 24px rgba(0,0,0,0.7);
+        .hero-avatar {
+            width: 84px; height: 84px;
+            border-radius: 50%;
+            margin: 0 auto 22px;
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px;
+            font-weight: 900;
+            color: #fff;
         }
-        .hero-tagline {
-            font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
-            margin-bottom: 24px; opacity: 0.9;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
         }
-        .hero-btn {
-            background: #fff; color: #111;
-            border: none; padding: 14px 32px;
-            font-size: 12px; font-weight: 700;
-            letter-spacing: 1.5px; text-transform: uppercase;
+        .hero h1 {
+            font-size: clamp(30px, 8vw, 52px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 30px;
+        }
+        .hero-actions {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            justify-content: center;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            color: #fff;
+            border: none;
+            padding: 15px 28px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 100px;
             cursor: pointer;
+            font-family: inherit;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--border);
+            padding: 15px 28px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
         }
 
         /* СЕКЦИИ */
-        .section { margin-bottom: 36px; }
-        .section-title {
-            font-size: 20px; font-weight: 800;
-            padding: 0 16px; margin-bottom: 16px;
-            letter-spacing: -0.5px;
+        .section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
-
-        /* КАРУСЕЛЬ */
-        .carousel {
-            display: flex; gap: 12px; overflow-x: auto;
-            padding: 0 16px 8px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        .carousel::-webkit-scrollbar { display: none; }
-        .carousel .card { flex: 0 0 46%; scroll-snap-align: start; }
-
-        /* СЕТКА */
-        .grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 18px 12px; padding: 0 16px;
-        }
-
-        /* КАРТОЧКА */
-        .card { cursor: pointer; }
-        .card-img-wrap {
-            position: relative; width: 100%;
-            aspect-ratio: 1 / 1;
-            background: #f2f2f2;
-            overflow: hidden;
-        }
-        .card img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
-        }
-        .card-info { padding-top: 10px; }
-        .card h3 {
-            font-size: 13px; font-weight: 500;
-            line-height: 1.35; margin-bottom: 4px;
-        }
-        .card .price {
-            font-size: 15px; font-weight: 700;
-        }
-        .card .price-eur {
-            font-size: 12px; font-weight: 500;
-            color: var(--tg-theme-hint-color, #888);
-            margin-top: 2px;
-        }
-        .card-add {
-            position: absolute;
-            bottom: 8px; right: 8px;
-            width: 34px; height: 34px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255,255,255,0.95);
-            color: #111;
-            font-size: 20px; line-height: 1;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        /* КНОПКА VIEW ALL */
-        .view-all-wrap { text-align: center; margin-top: 22px; padding: 0 16px; }
-        .view-all {
-            background: #111; color: #fff; border: none;
-            padding: 14px 36px;
-            font-size: 12px; font-weight: 700;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        /* НИЖНЯЯ ПАНЕЛЬ */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: #111; color: #fff;
-            padding: 14px 16px;
-            display: flex; align-items: center; justify-content: space-between;
-            z-index: 60;
-        }
-        .bottom-bar .info { font-size: 13px; font-weight: 600; }
-        .bottom-bar .btn {
-            background: #fff; color: #111;
-            border: none; padding: 10px 22px;
-            font-size: 12px; font-weight: 700;
-            letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        /* КАТЕГОРИИ */
-        .categories {
-            display: flex; gap: 8px; overflow-x: auto;
-            padding: 0 16px 16px;
-            -webkit-overflow-scrolling: touch;
-        }
-        .categories::-webkit-scrollbar { display: none; }
-        .cat-btn {
-            flex-shrink: 0;
-            padding: 8px 16px;
-            font-size: 12px; font-weight: 500;
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 20px;
-            background: transparent;
-            color: var(--tg-theme-text-color, #111);
-            cursor: pointer; white-space: nowrap;
-        }
-        .cat-btn.active {
-            background: #111; color: #fff;
-            border-color: #111;
-        }
-
-        /* МОДАЛКИ */
-        .modal {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.55);
-            display: none; align-items: flex-end;
-            z-index: 100;
-        }
-        .modal.open { display: flex; }
-        .modal-content {
-            background: var(--tg-theme-bg-color, #fff);
-            color: var(--tg-theme-text-color, #111);
-            width: 100%; max-height: 82vh;
-            overflow-y: auto;
-            border-radius: 18px 18px 0 0;
-            padding: 20px 16px 24px;
-        }
-        .modal-content h2 {
-            font-size: 18px; font-weight: 800;
+        .section-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 100px;
             margin-bottom: 16px;
-            letter-spacing: -0.3px;
         }
-        .cart-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        .cart-item img {
-            width: 56px; height: 56px;
-            object-fit: cover; border-radius: 4px;
-            background: #f2f2f2;
-        }
-        .cart-item-info { flex: 1; }
-        .cart-item-info h4 {
-            font-size: 13px; font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .cart-item-info span { font-size: 13px; opacity: 0.7; }
-        .qty-controls { display: flex; align-items: center; gap: 8px; }
-        .qty-controls button {
-            width: 28px; height: 28px;
-            border: 1px solid rgba(0,0,0,0.15);
-            border-radius: 50%;
-            background: transparent;
-            color: var(--tg-theme-text-color, #111);
-            font-size: 16px; cursor: pointer;
-        }
-        .modal-total {
-            display: flex; justify-content: space-between;
-            font-size: 16px; font-weight: 800;
-            margin-top: 16px; padding-top: 16px;
-            border-top: 2px solid #111;
-        }
-        .modal-actions {
-            display: flex; gap: 10px; margin-top: 16px;
-        }
-        .modal-actions button {
-            flex: 1; padding: 14px;
-            font-size: 12px; font-weight: 700;
-            letter-spacing: 1px; text-transform: uppercase;
-            border: none; cursor: pointer;
-        }
-        .btn-close {
-            background: transparent;
-            color: var(--tg-theme-text-color, #111);
-            border: 1px solid rgba(0,0,0,0.2) !important;
-        }
-        .btn-pay { background: #111; color: #fff; }
-        .manager-text {
-            font-size: 14px; opacity: 0.7;
-            margin-bottom: 20px; line-height: 1.5;
-        }
-
-        /* СЕКЦИИ ТЕКСТА (для портфолио) */
-        .text-section {
-            padding: 24px 16px;
-        }
-        .text-section h2 {
-            font-size: 24px;
+        .section h2 {
+            font-size: clamp(26px, 6vw, 38px);
             font-weight: 900;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
+            line-height: 1.1;
+            letter-spacing: -1.2px;
+            margin-bottom: 14px;
+            color: #fff;
         }
-        .text-section p {
+        .section h2 .gradient {
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-desc {
             font-size: 14px;
-            line-height: 1.6;
-            opacity: 0.7;
-            margin-bottom: 12px;
-        }
-        .services-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 0 16px;
-        }
-        .service-block {
-            background: #f7f7f7;
-            padding: 16px;
-            border-radius: 8px;
-        }
-        .service-block h3 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .service-block p {
-            font-size: 12px;
-            opacity: 0.6;
-            line-height: 1.5;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 600px;
+            margin-bottom: 36px;
         }
 
-        .pricing-list {
-            padding: 0 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        /* УСЛУГИ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
         }
-        .price-block {
-            background: #f7f7f7;
-            padding: 20px;
+        .service-card {
+            background: var(--card);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 26px 22px;
+        }
+        .service-card:hover { border-color: var(--border); }
+        .service-icon {
+            width: 48px; height: 48px;
             border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, rgba(139,92,246,0.2) 0%, rgba(236,72,153,0.15) 100%);
+            border: 1px solid var(--border);
         }
-        .price-block .info-block h3 {
-            font-size: 16px;
+        .service-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .service-desc {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        /* РАБОТЫ */
+        .works-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .work-card {
+            background: var(--card);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 22px;
+        }
+        .work-card:hover { border-color: var(--border); }
+        .work-category {
+            font-size: 10px;
             font-weight: 700;
-            margin-bottom: 4px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 8px;
         }
-        .price-block .info-block p {
-            font-size: 12px;
-            opacity: 0.6;
+        .work-title {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #fff;
         }
-        .price-block .price-tag {
-            font-size: 18px;
-            font-weight: 900;
+        .work-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .work-tags {
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+        .work-tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: rgba(139,92,246,0.1);
+            color: var(--accent-light);
+            border: 1px solid var(--border);
+        }
+
+        /* ЦЕНЫ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+        .price-card {
+            background: var(--card);
+            border: 1px solid var(--border-soft);
+            border-radius: 20px;
+            padding: 28px 22px;
+            position: relative;
+        }
+        .price-card.featured {
+            border-color: var(--accent);
+        }
+        .price-badge {
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 5px 14px;
+            border-radius: 100px;
+            text-transform: uppercase;
             white-space: nowrap;
         }
+        .price-name {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+        .price-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent-light);
+            margin-bottom: 6px;
+            letter-spacing: -1px;
+        }
+        .price-value small {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+        .price-desc {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .price-list {
+            list-style: none;
+            margin-bottom: 22px;
+        }
+        .price-list li {
+            font-size: 13px;
+            color: var(--text);
+            padding: 7px 0;
+            padding-left: 20px;
+            position: relative;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .price-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 900;
+        }
+        .price-btn {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: #fff;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 100px;
+        }
+        .price-btn:hover {
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            border-color: transparent;
+        }
+        .price-card.featured .price-btn {
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            border-color: transparent;
+        }
 
-        .faq-section {
-            padding: 0 16px;
+        /* FAQ */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 720px;
         }
         .faq-item {
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            padding: 16px 0;
+            background: var(--card);
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            overflow: hidden;
         }
         .faq-q {
+            padding: 18px 20px;
             font-size: 14px;
             font-weight: 700;
+            color: #fff;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
-        .faq-q::after { content: '+'; font-size: 20px; }
+        .faq-q::after {
+            content: '+';
+            font-size: 22px;
+            color: var(--accent-light);
+            font-weight: 300;
+        }
         .faq-item.open .faq-q::after { content: '−'; }
         .faq-a {
             max-height: 0;
             overflow: hidden;
+            padding: 0 20px;
             font-size: 13px;
-            opacity: 0.7;
+            color: var(--muted);
             line-height: 1.6;
             transition: all 0.3s;
         }
         .faq-item.open .faq-a {
             max-height: 200px;
-            padding-top: 10px;
+            padding: 0 20px 18px;
+        }
+
+        /* CTA */
+        .cta {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.08) 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 44px 24px;
+            text-align: center;
+        }
+        .cta h3 {
+            font-size: clamp(22px, 5.5vw, 32px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        .cta p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ФУТЕР */
+        .footer {
+            padding: 30px 20px 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-soft);
+            color: var(--muted);
+            font-size: 12px;
+        }
+        .footer-logo {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--accent-light);
+            margin-bottom: 6px;
+        }
+
+        /* АДАПТИВ */
+        @media (min-width: 640px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .works-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 900px) {
+            .nav { display: flex; }
+            .services-grid { grid-template-columns: repeat(4, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- ШАПКА -->
+    <!-- ХЕДЕР -->
     <header class="header">
         <div class="logo">pitelicik</div>
-        <div class="header-icons">
-            <div class="cart-icon-wrap" id="cartIconBtn">
-                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </div>
-        </div>
+        <nav class="nav">
+            <a href="#services">Услуги</a>
+            <a href="#works">Работы</a>
+            <a href="#pricing">Цены</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <a class="header-btn" id="headerBtn" href="#">Заказать</a>
     </header>
 
-    <!-- БАННЕР -->
+    <!-- HERO -->
     <section class="hero">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800" alt="pitelicik">
-        <div class="hero-overlay">
-            <div class="hero-text">
-                <h1 class="hero-logo">pitelicik</h1>
-                <p class="hero-tagline">Веб-разработка</p>
-                <button class="hero-btn" onclick="openTelegram()">Заказать сайт</button>
+        <div class="hero-avatar">P</div>
+        <div class="hero-eyebrow">Веб-разработчик</div>
+        <h1>
+            Создаю сайты,<br>
+            <span class="gradient">которые работают</span>
+        </h1>
+        <p class="hero-desc">
+            Лендинги, интернет-магазины и Telegram Mini Apps. Делаю под ключ: дизайн, код, запуск. Быстро, качественно, недорого.
+        </p>
+        <div class="hero-actions">
+            <a class="btn-primary" id="heroBtn" href="#">Заказать сайт</a>
+            <a class="btn-outline" href="#works">Смотреть работы</a>
+        </div>
+    </section>
+
+    <!-- УСЛУГИ -->
+    <section class="section" id="services">
+        <span class="section-tag">Что я делаю</span>
+        <h2>Услуги</h2>
+        <p class="section-desc">Помогаю бизнесу и людям появляться в интернете — от простой визитки до полноценного магазина.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <div class="service-title">Лендинги</div>
+                <div class="service-desc">Одностраничные сайты для услуги или продукта.</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛍</div>
+                <div class="service-title">Магазины</div>
+                <div class="service-desc">Каталог, корзина, оформление заказа.</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <div class="service-title">Mini Apps</div>
+                <div class="service-desc">Сайты прямо в Telegram.</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <div class="service-title">Боты</div>
+                <div class="service-desc">Автоматизация и приём заказов.</div>
             </div>
         </div>
     </section>
 
-    <!-- О СЕБЕ -->
-    <div class="text-section">
-        <h2>Создаю сайты,<br>которые продают</h2>
-        <p>Лендинги, интернет-магазины, Telegram Mini Apps и боты. Работаю под ключ — от идеи до запуска.</p>
-        <p>Свяжись со мной в Telegram, обсудим задачу.</p>
-    </div>
-
-    <!-- УСЛУГИ -->
-    <section class="section">
-        <h2 class="section-title">Что я делаю</h2>
-        <div class="services-list">
-            <div class="service-block">
-                <h3>🌐 Лендинги</h3>
-                <p>Продающие одностраничники</p>
+    <!-- РАБОТЫ -->
+    <section class="section" id="works">
+        <span class="section-tag">Портфолио</span>
+        <h2>Мои работы</h2>
+        <p class="section-desc">Несколько проектов, которые я сделал. Все они работают.</p>
+        <div class="works-grid">
+            <div class="work-card">
+                <div class="work-category">Магазин одежды</div>
+                <div class="work-title">marca.storre</div>
+                <div class="work-desc">Каталог, корзина, оформление через Telegram.</div>
+                <div class="work-tags">
+                    <span class="work-tag">HTML</span>
+                    <span class="work-tag">CSS</span>
+                    <span class="work-tag">Telegram</span>
+                </div>
             </div>
-            <div class="service-block">
-                <h3>🛍 Магазины</h3>
-                <p>Каталог, корзина, заказ</p>
+            <div class="work-card">
+                <div class="work-category">Mini App</div>
+                <div class="work-title">Vape Store</div>
+                <div class="work-desc">Магазин вейпов с 18+ фильтром.</div>
+                <div class="work-tags">
+                    <span class="work-tag">Mini App</span>
+                    <span class="work-tag">Корзина</span>
+                </div>
             </div>
-            <div class="service-block">
-                <h3>📱 Mini Apps</h3>
-                <p>Сайты прямо в Telegram</p>
+            <div class="work-card">
+                <div class="work-category">Магазин парфюмерии</div>
+                <div class="work-title">Essence</div>
+                <div class="work-desc">Премиум-дизайн и каталог парфюмерии.</div>
+                <div class="work-tags">
+                    <span class="work-tag">Премиум</span>
+                    <span class="work-tag">Анимации</span>
+                </div>
             </div>
-            <div class="service-block">
-                <h3>🤖 Боты</h3>
-                <p>Автоматизация в Telegram</p>
+            <div class="work-card">
+                <div class="work-category">Лендинг агентства</div>
+                <div class="work-title">Web Tactics</div>
+                <div class="work-desc">Лендинг digital-агентства с 3D-эффектами.</div>
+                <div class="work-tags">
+                    <span class="work-tag">3D</span>
+                    <span class="work-tag">CSS</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ЦЕНЫ -->
-    <section class="section">
-        <h2 class="section-title">Цены</h2>
-        <div class="pricing-list">
-            <div class="price-block">
-                <div class="info-block">
-                    <h3>Лендинг</h3>
-                    <p>2-4 дня</p>
-                </div>
-                <div class="price-tag">от 1500 MDL</div>
+    <section class="section" id="pricing">
+        <span class="section-tag">Стоимость</span>
+        <h2>Цены</h2>
+        <p class="section-desc">Ориентировочные пакеты. Точная цена — после обсуждения задачи.</p>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="price-name">Визитка / Лендинг</div>
+                <div class="price-value">от 1000 <small>MDL</small></div>
+                <div class="price-desc">Небольшой сайт для услуги или человека</div>
+                <ul class="price-list">
+                    <li>До 5 секций</li>
+                    <li>Адаптив под телефон</li>
+                    <li>Форма связи</li>
+                    <li>Запуск за 2-3 дня</li>
+                </ul>
+                <a class="price-btn" id="priceBtn1" href="#">Заказать</a>
             </div>
-            <div class="price-block">
-                <div class="info-block">
-                    <h3>Магазин / Mini App</h3>
-                    <p>5-7 дней</p>
-                </div>
-                <div class="price-tag">от 3500 MDL</div>
-            </div>
-            <div class="price-block">
-                <div class="info-block">
-                    <h3>Под ключ</h3>
-                    <p>сайт + бот</p>
-                </div>
-                <div class="price-tag">от 7000 MDL</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section">
-        <h2 class="section-title">Вопросы</h2>
-        <div class="faq-section">
-            <div class="faq-item">
-                <div class="faq-q">Сколько стоит сайт?</div>
-                <div class="faq-a">Зависит от сложности. Лендинг — от 1500 MDL. Магазин — от 3500 MDL. Точная цена после брифа.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">Сколько времени займёт?</div>
-                <div class="faq-a">Лендинг — 2-4 дня. Магазин — 5-7 дней. Большие проекты — 1-2 недели.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">Что нужно от меня?</div>
-                <div class="faq-a">Идея, тексты, фото. Если чего-то нет — помогу собрать.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">Сайт будет работать в Telegram?</div>
-                <div class="faq-a">Да. Делаю Mini Apps — сайт прямо в Telegram с корзиной и заказом.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- НИЖНЯЯ ПАНЕЛЬ -->
-    <div class="bottom-bar" id="bottomBar">
-        <div class="info"><span id="barCount">0</span> товаров · <span id="barTotal">0</span> MDL</div>
-        <button class="btn" id="openCartBtn">Корзина</button>
-    </div>
-
-    <!-- КОРЗИНА -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <h2>Корзина</h2>
-            <div id="cartItems"></div>
-            <div class="modal-total">
-                <span>Итого:</span>
-                <span id="modalTotal">0 MDL</span>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-close" id="closeCartBtn">Закрыть</button>
-                <button class="btn-pay" id="checkoutBtn">Оформить</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- МЕНЕДЖЕР -->
-    <div class="modal" id="managerModal">
-        <div class="modal-content" style="text-align:center;">
-            <h2 style="margin-bottom:12px;">Спасибо! 🎉</h2>
-            <p class="manager-text">
-                Напишите мне в Telegram — обсудим задачу, сроки и цену.
-            </p>
-            <div class="modal-actions" style="flex-direction:column;">
-                <button class="btn-pay" id="writeManagerBtn">💬 Написать в Telegram</button>
-                <button class="btn-close" id="closeManagerBtn">Закрыть</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
-</body>
-  </html>
+            <div class="price-card featured">
+                <div class="price-badge">Популярное</div>
+                <div class="price-name">Магази
