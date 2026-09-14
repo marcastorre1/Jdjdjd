@@ -3,137 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pitelicik — создаю сайты</title>
+    <title>pitelicik — веб-разработка</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #0a0a0f;
-            --card: #14141c;
+            --bg: #08080d;
+            --card: #121220;
             --text: #f5f5fa;
-            --muted: #8a8a98;
-            --accent: #8b5cf6;
-            --accent-light: #a78bfa;
+            --muted: #7a7a8c;
+            --violet: #8b5cf6;
+            --violet-light: #a78bfa;
             --pink: #ec4899;
-            --border: rgba(139,92,246,0.18);
-            --border-soft: rgba(255,255,255,0.07);
+            --cyan: #06b6d4;
+            --border: rgba(139,92,246,0.15);
+            --border-soft: rgba(255,255,255,0.06);
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: -apple-system, 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            padding-bottom: 60px;
+            min-height: 100vh;
+            padding-bottom: 80px;
             -webkit-font-smoothing: antialiased;
         }
 
         /* ХЕДЕР */
         .header {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(10,10,15,0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-soft);
             padding: 16px 20px;
+            background: rgba(8,8,13,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-soft);
             display: flex; align-items: center; justify-content: space-between;
         }
         .logo {
-            font-size: 17px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
         }
         .nav {
             display: none;
             gap: 24px;
-            font-size: 13px;
+            font-size: 12px;
+            font-weight: 500;
         }
         .nav a {
             color: var(--muted);
             text-decoration: none;
-            transition: color 0.2s;
         }
-        .nav a:hover { color: var(--accent-light); }
+        .nav a:hover { color: var(--violet-light); }
         .header-btn {
-            background: linear-gradient(135deg, var(--accent), var(--pink));
+            background: linear-gradient(135deg, var(--violet), var(--pink));
             color: #fff;
             border: none;
             padding: 10px 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             border-radius: 100px;
             cursor: pointer;
             font-family: inherit;
+            text-decoration: none;
+            display: inline-block;
         }
 
         /* HERO */
         .hero {
-            padding: 70px 20px 60px;
-            max-width: 900px;
+            padding: 80px 20px 60px;
+            max-width: 1100px;
             margin: 0 auto;
             text-align: center;
         }
         .hero-avatar {
-            width: 84px; height: 84px;
+            width: 90px; height: 90px;
             border-radius: 50%;
-            margin: 0 auto 22px;
-            background: linear-gradient(135deg, var(--accent), var(--pink));
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--violet), var(--pink));
             display: flex; align-items: center; justify-content: center;
-            font-size: 30px;
-            font-weight: 900;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
             color: #fff;
         }
         .hero-eyebrow {
             display: inline-block;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--accent-light);
+            color: var(--violet-light);
             border: 1px solid var(--border);
             padding: 6px 16px;
             border-radius: 100px;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         .hero h1 {
-            font-size: clamp(30px, 8vw, 52px);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(34px, 9vw, 62px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 22px;
             color: #fff;
         }
         .hero h1 .gradient {
-            background: linear-gradient(135deg, var(--accent-light) 0%, var(--pink) 100%);
+            background: linear-gradient(135deg, var(--violet-light) 0%, var(--pink) 50%, var(--cyan) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .hero h1 .italic {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--muted);
+        }
         .hero-desc {
-            font-size: 15px;
+            font-size: clamp(14px, 3.5vw, 16px);
             color: var(--muted);
             line-height: 1.7;
-            max-width: 560px;
-            margin: 0 auto 30px;
+            max-width: 620px;
+            margin: 0 auto 32px;
         }
         .hero-actions {
             display: flex; flex-wrap: wrap; gap: 12px;
             justify-content: center;
+            margin-bottom: 32px;
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--pink));
+            background: linear-gradient(135deg, var(--violet), var(--pink));
             color: #fff;
             border: none;
-            padding: 15px 28px;
-            font-size: 13px;
+            padding: 15px 30px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -147,8 +157,8 @@
             background: transparent;
             color: #fff;
             border: 1px solid var(--border);
-            padding: 15px 28px;
-            font-size: 13px;
+            padding: 15px 30px;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -159,38 +169,81 @@
             display: inline-block;
         }
         .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent-light);
+            border-color: var(--violet);
+            color: var(--violet-light);
+        }
+        .hero-meta {
+            display: flex; justify-content: center; gap: 24px;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            flex-wrap: wrap;
+        }
+        .hero-meta span {
+            display: flex; align-items: center; gap: 6px;
+        }
+        .hero-meta .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--violet);
+        }
+
+        /* Бегущая строка */
+        .marquee-wrap {
+            padding: 24px 20px;
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+            margin: 20px 0 0;
+        }
+        .marquee {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .marquee span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        .marquee span::before {
+            content: '◆ ';
+            color: var(--violet);
         }
 
         /* СЕКЦИИ */
         .section {
-            padding: 60px 20px;
-            max-width: 1000px;
+            padding: 70px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         .section-tag {
             display: inline-block;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--accent-light);
+            color: var(--violet-light);
             border: 1px solid var(--border);
             padding: 6px 14px;
             border-radius: 100px;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
         .section h2 {
-            font-size: clamp(26px, 6vw, 38px);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1.2px;
-            margin-bottom: 14px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 6.5vw, 44px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin-bottom: 16px;
             color: #fff;
         }
         .section h2 .gradient {
-            background: linear-gradient(135deg, var(--accent-light) 0%, var(--pink) 100%);
+            background: linear-gradient(135deg, var(--violet-light) 0%, var(--pink) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -200,35 +253,48 @@
             line-height: 1.7;
             color: var(--muted);
             max-width: 600px;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
+        }
+
+        /* АНИМАЦИЯ ПОЯВЛЕНИЯ — ОДНА, КРАСИВАЯ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* УСЛУГИ */
         .services-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 14px;
+            gap: 16px;
         }
         .service-card {
             background: var(--card);
             border: 1px solid var(--border-soft);
-            border-radius: 18px;
-            padding: 26px 22px;
+            border-radius: 20px;
+            padding: 28px 24px;
         }
         .service-card:hover { border-color: var(--border); }
         .service-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
+            width: 52px; height: 52px;
+            border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            margin-bottom: 16px;
+            font-size: 24px;
+            margin-bottom: 18px;
             background: linear-gradient(135deg, rgba(139,92,246,0.2) 0%, rgba(236,72,153,0.15) 100%);
             border: 1px solid var(--border);
         }
         .service-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 17px;
-            font-weight: 800;
-            margin-bottom: 8px;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: #fff;
         }
         .service-desc {
@@ -236,31 +302,93 @@
             line-height: 1.6;
             color: var(--muted);
         }
+        .service-list {
+            list-style: none;
+            margin-top: 14px;
+        }
+        .service-list li {
+            font-size: 12px;
+            color: var(--muted);
+            padding: 3px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+        .service-list li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--violet);
+            font-size: 7px;
+            top: 7px;
+        }
 
         /* РАБОТЫ */
         .works-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 20px;
         }
         .work-card {
             background: var(--card);
             border: 1px solid var(--border-soft);
-            border-radius: 18px;
-            padding: 22px;
+            border-radius: 20px;
+            overflow: hidden;
         }
         .work-card:hover { border-color: var(--border); }
+        .work-preview {
+            aspect-ratio: 16 / 10;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .work-preview-mockup {
+            width: 70%;
+            height: 65%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 12px;
+        }
+        .mockup-bar {
+            display: flex; gap: 4px;
+            margin-bottom: 10px;
+        }
+        .mockup-bar span {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .mockup-bar span:nth-child(1) { background: #ff5f57; }
+        .mockup-bar span:nth-child(2) { background: #febc2e; }
+        .mockup-bar span:nth-child(3) { background: #28c840; }
+        .mockup-line {
+            height: 6px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 3px;
+            margin-bottom: 6px;
+        }
+        .mockup-line.short { width: 60%; }
+        .mockup-line.tiny { width: 40%; }
+        .mockup-block {
+            height: 40px;
+            background: linear-gradient(135deg, rgba(139,92,246,0.4) 0%, rgba(236,72,153,0.3) 100%);
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .work-info { padding: 20px; }
         .work-category {
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--accent-light);
+            color: var(--violet-light);
             margin-bottom: 8px;
         }
         .work-title {
-            font-size: 19px;
-            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
             margin-bottom: 8px;
             color: #fff;
         }
@@ -279,31 +407,90 @@
             padding: 4px 10px;
             border-radius: 100px;
             background: rgba(139,92,246,0.1);
-            color: var(--accent-light);
+            color: var(--violet-light);
             border: 1px solid var(--border);
+        }
+
+        /* ПРОЦЕСС */
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .process-card {
+            background: var(--card);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 24px 22px;
+        }
+        .process-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--violet-light);
+            margin-bottom: 14px;
+        }
+        .process-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .process-desc {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* СТАТИСТИКА */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
         }
 
         /* ЦЕНЫ */
         .pricing-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 14px;
+            gap: 16px;
         }
         .price-card {
             background: var(--card);
             border: 1px solid var(--border-soft);
             border-radius: 20px;
-            padding: 28px 22px;
+            padding: 30px 24px;
             position: relative;
         }
         .price-card.featured {
-            border-color: var(--accent);
+            border-color: var(--violet);
         }
         .price-badge {
             position: absolute;
             top: -12px; left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--accent), var(--pink));
+            background: linear-gradient(135deg, var(--violet), var(--pink));
             color: #fff;
             font-size: 9px;
             font-weight: 700;
@@ -314,15 +501,17 @@
             white-space: nowrap;
         }
         .price-name {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 6px;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: #fff;
         }
         .price-value {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 32px;
-            font-weight: 900;
-            color: var(--accent-light);
+            font-weight: 700;
+            color: var(--violet-light);
             margin-bottom: 6px;
             letter-spacing: -1px;
         }
@@ -334,17 +523,17 @@
         .price-desc {
             font-size: 12px;
             color: var(--muted);
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             line-height: 1.5;
         }
         .price-list {
             list-style: none;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
         .price-list li {
             font-size: 13px;
             color: var(--text);
-            padding: 7px 0;
+            padding: 8px 0;
             padding-left: 20px;
             position: relative;
             border-bottom: 1px solid var(--border-soft);
@@ -353,7 +542,7 @@
             content: '✓';
             position: absolute;
             left: 0;
-            color: var(--accent);
+            color: var(--violet);
             font-size: 12px;
             font-weight: 900;
         }
@@ -364,19 +553,22 @@
             border: 1px solid var(--border);
             color: #fff;
             font-family: inherit;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 100px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         .price-btn:hover {
-            background: linear-gradient(135deg, var(--accent), var(--pink));
+            background: linear-gradient(135deg, var(--violet), var(--pink));
             border-color: transparent;
         }
         .price-card.featured .price-btn {
-            background: linear-gradient(135deg, var(--accent), var(--pink));
+            background: linear-gradient(135deg, var(--violet), var(--pink));
             border-color: transparent;
         }
 
@@ -384,19 +576,20 @@
         .faq-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-width: 720px;
+            gap: 12px;
+            max-width: 800px;
         }
         .faq-item {
             background: var(--card);
             border: 1px solid var(--border-soft);
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
         }
+        .faq-item:hover { border-color: var(--border); }
         .faq-q {
-            padding: 18px 20px;
+            padding: 20px 22px;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
             color: #fff;
             cursor: pointer;
             display: flex;
@@ -407,85 +600,90 @@
         .faq-q::after {
             content: '+';
             font-size: 22px;
-            color: var(--accent-light);
+            color: var(--violet-light);
             font-weight: 300;
         }
         .faq-item.open .faq-q::after { content: '−'; }
         .faq-a {
             max-height: 0;
             overflow: hidden;
-            padding: 0 20px;
+            padding: 0 22px;
             font-size: 13px;
             color: var(--muted);
             line-height: 1.6;
             transition: all 0.3s;
         }
         .faq-item.open .faq-a {
-            max-height: 200px;
-            padding: 0 20px 18px;
+            max-height: 300px;
+            padding: 0 22px 20px;
         }
 
         /* CTA */
         .cta {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 40px 20px 60px;
+            padding: 60px 20px;
         }
         .cta-box {
-            background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.08) 100%);
+            background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.1) 100%);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 44px 24px;
+            border-radius: 28px;
+            padding: 50px 24px;
             text-align: center;
         }
         .cta h3 {
-            font-size: clamp(22px, 5.5vw, 32px);
-            font-weight: 900;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(24px, 6vw, 36px);
+            font-weight: 700;
             letter-spacing: -1px;
             line-height: 1.15;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             color: #fff;
         }
         .cta p {
             font-size: 14px;
             color: var(--muted);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             line-height: 1.6;
-            max-width: 480px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
         /* ФУТЕР */
         .footer {
-            padding: 30px 20px 40px;
+            padding: 40px 20px 60px;
             text-align: center;
             border-top: 1px solid var(--border-soft);
             color: var(--muted);
-            font-size: 12px;
+            font-size: 11px;
+            ng: 1px;
         }
         .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 16px;
-            font-weight: 900;
-            color: var(--accent-light);
-            margin-bottom: 6px;
+            font-weight: 700;
+            color: var(--violet-light);
+            margin-bottom: 8px;
         }
 
         /* АДАПТИВ */
         @media (min-width: 640px) {
             .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-grid { grid-template-columns: repeat(2, 1fr); }
             .works-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-row { grid-template-columns: repeat(4, 1fr); }
         }
         @media (min-width: 900px) {
             .nav { display: flex; }
             .services-grid { grid-template-columns: repeat(4, 1fr); }
+            .process-grid { grid-template-columns: repeat(4, 1fr); }
             .pricing-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- ХЕДЕР -->
     <header class="header">
         <div class="logo">pitelicik</div>
         <nav class="nav">
@@ -497,105 +695,225 @@
         <a class="header-btn" id="headerBtn" href="#">Заказать</a>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="hero-avatar">P</div>
-        <div class="hero-eyebrow">Веб-разработчик</div>
+        <div class="hero-eyebrow">Веб-разработчик · Молдова</div>
         <h1>
             Создаю сайты,<br>
-            <span class="gradient">которые работают</span>
+            <span class="gradient">которые продают</span><br>
+            <span class="italic">и запоминаются</span>
         </h1>
         <p class="hero-desc">
-            Лендинги, интернет-магазины и Telegram Mini Apps. Делаю под ключ: дизайн, код, запуск. Быстро, качественно, недорого.
+            Лендинги, интернет-магазины, Telegram Mini Apps и боты. Работаю с дизайном, кодом и запуском — под ключ. От идеи до готового продукта за несколько дней.
         </p>
         <div class="hero-actions">
             <a class="btn-primary" id="heroBtn" href="#">Заказать сайт</a>
             <a class="btn-outline" href="#works">Смотреть работы</a>
         </div>
+        <div class="hero-meta">
+            <span><span class="dot"></span> Отвечаю за 5 минут</span>
+            <span><span class="dot"></span> Работаю по всему миру</span>
+        </div>
     </section>
 
-    <!-- УСЛУГИ -->
+    <div class="marquee-wrap">
+        <div class="marquee">
+            <span>Лендинги</span><span>Магазины</span><span>Mini Apps</span><span>Telegram-боты</span><span>Портфолио</span><span>Визитки</span>
+        </div>
+    </div>
+
     <section class="section" id="services">
         <span class="section-tag">Что я делаю</span>
-        <h2>Услуги</h2>
-        <p class="section-desc">Помогаю бизнесу и людям появляться в интернете — от простой визитки до полноценного магазина.</p>
+        <h2>Полный цикл<br><span class="gradient">веб-разработки</span></h2>
+        <p class="section-desc">От простых лендингов до сложных Mini Apps с корзиной и оплатой.</p>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">🌐</div>
                 <div class="service-title">Лендинги</div>
-                <div class="service-desc">Одностраничные сайты для услуги или продукта.</div>
+                <div class="service-desc">Одностраничные сайты, которые продают.</div>
+                <ul class="service-list">
+                    <li>Дизайн под ваш бренд</li>
+                    <li>Адаптив под телефон</li>
+                    <li>Форма заявки</li>
+                </ul>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">🛍</div>
-                <div class="service-title">Магазины</div>
+                <div class="service-title">Интернет-магазины</div>
                 <div class="service-desc">Каталог, корзина, оформление заказа.</div>
+                <ul class="service-list">
+                    <li>Каталог с фильтрами</li>
+                    <li>Корзина и оформление</li>
+                    <li>Интеграция с Telegram</li>
+                </ul>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">📱</div>
                 <div class="service-title">Mini Apps</div>
-                <div class="service-desc">Сайты прямо в Telegram.</div>
+                <div class="service-desc">Приложения прямо в Telegram.</div>
+                <ul class="service-list">
+                    <li>Каталог и корзина</li>
+                    <li>Профиль и история</li>
+                    <li>Приём заказов</li>
+                </ul>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">🤖</div>
-                <div class="service-title">Боты</div>
-                <div class="service-desc">Автоматизация и приём заказов.</div>
+                <div class="service-title">Telegram-боты</div>
+                <div class="service-desc">Автоматизация: приём заказов, рассылки.</div>
+                <ul class="service-list">
+                    <li>Приём заявок</li>
+                    <li>Автоответы и меню</li>
+                    <li>Уведомления</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- РАБОТЫ -->
     <section class="section" id="works">
         <span class="section-tag">Портфолио</span>
-        <h2>Мои работы</h2>
-        <p class="section-desc">Несколько проектов, которые я сделал. Все они работают.</p>
+        <h2>Мои <span class="gradient">работы</span></h2>
+        <p class="section-desc">Несколько проектов, которые я сделал.</p>
         <div class="works-grid">
-            <div class="work-card">
-                <div class="work-category">Магазин одежды</div>
-                <div class="work-title">marca.storre</div>
-                <div class="work-desc">Каталог, корзина, оформление через Telegram.</div>
-                <div class="work-tags">
-                    <span class="work-tag">HTML</span>
-                    <span class="work-tag">CSS</span>
-                    <span class="work-tag">Telegram</span>
+            <div class="work-card fade-in">
+                <div class="work-preview">
+                    <div class="work-preview-mockup">
+                        <div class="mockup-bar"><span></span><span></span><span></span></div>
+                        <div class="mockup-line"></div>
+                        <div class="mockup-line short"></div>
+                        <div class="mockup-line tiny"></div>
+                        <div class="mockup-block"></div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">Интернет-магазин</div>
+                    <div class="work-title">marca.storre</div>
+                    <div class="work-desc">Магазин одежды с каталогом и корзиной.</div>
+                    <div class="work-tags">
+                        <span class="work-tag">HTML</span>
+                        <span class="work-tag">CSS</span>
+                        <span class="work-tag">Telegram</span>
+                    </div>
                 </div>
             </div>
-            <div class="work-card">
-                <div class="work-category">Mini App</div>
-                <div class="work-title">Vape Store</div>
-                <div class="work-desc">Магазин вейпов с 18+ фильтром.</div>
-                <div class="work-tags">
-                    <span class="work-tag">Mini App</span>
-                    <span class="work-tag">Корзина</span>
+            <div class="work-card fade-in">
+                <div class="work-preview">
+                    <div class="work-preview-mockup">
+                        <div class="mockup-bar"><span></span><span></span><span></span></div>
+                        <div class="mockup-line"></div>
+                        <div class="mockup-line short"></div>
+                        <div class="mockup-line tiny"></div>
+                        <div class="mockup-block"></div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">Mini App</div>
+                    <div class="work-title">Vape Store</div>
+                    <div class="work-desc">Магазин вейпов с 18+ фильтром.</div>
+                    <div class="work-tags">
+                        <span class="work-tag">Mini App</span>
+                        <span class="work-tag">Анимации</span>
+                    </div>
                 </div>
             </div>
-            <div class="work-card">
-                <div class="work-category">Магазин парфюмерии</div>
-                <div class="work-title">Essence</div>
-                <div class="work-desc">Премиум-дизайн и каталог парфюмерии.</div>
-                <div class="work-tags">
-                    <span class="work-tag">Премиум</span>
-                    <span class="work-tag">Анимации</span>
+            <div class="work-card fade-in">
+                <div class="work-preview">
+                    <div class="work-preview-mockup">
+                        <div class="mockup-bar"><span></span><span></span><span></span></div>
+                        <div class="mockup-line"></div>
+                        <div class="mockup-line short"></div>
+                        <div class="mockup-line tiny"></div>
+                        <div class="mockup-block"></div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">Магазин парфюмерии</div>
+                    <div class="work-title">Essence</div>
+                    <div class="work-desc">Премиум-магазин парфюмерии.</div>
+                    <div class="work-tags">
+                        <span class="work-tag">Премиум</span>
+                        <span class="work-tag">Telegram</span>
+                    </div>
                 </div>
             </div>
-            <div class="work-card">
-                <div class="work-category">Лендинг агентства</div>
-                <div class="work-title">Web Tactics</div>
-                <div class="work-desc">Лендинг digital-агентства с 3D-эффектами.</div>
-                <div class="work-tags">
-                    <span class="work-tag">3D</span>
-                    <span class="work-tag">CSS</span>
+            <div class="work-card fade-in">
+                <div class="work-preview">
+                    <div class="work-preview-mockup">
+                        <div class="mockup-bar"><span></span><span></span><span></span></div>
+                        <div class="mockup-line"></div>
+                        <div class="mockup-line short"></div>
+                        <div class="mockup-line tiny"></div>
+                        <div class="mockup-block"></div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">Лендинг</div>
+                    <div class="work-title">Web Tactics</div>
+                    <div class="work-desc">Лендинг digital-агентства с 3D-кубом.</div>
+                    <div class="work-tags">
+                        <span class="work-tag">CSS 3D</span>
+                        <span class="work-tag">Анимации</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ЦЕНЫ -->
+    <section class="section">
+        <span class="section-tag">Как я работаю</span>
+        <h2>От идеи<br><span class="gradient">до запуска</span></h2>
+        <p class="section-desc">Четыре простых этапа.</p>
+        <div class="process-grid">
+            <div class="process-card fade-in">
+                <div class="process-num">01</div>
+                <div class="process-title">Бриф и идея</div>
+                <div class="process-desc">Обсуждаем задачу: что за сайт, для кого, какой результат.</div>
+            </div>
+            <div class="process-card fade-in">
+                <div class="process-num">02</div>
+                <div class="process-title">Дизайн и структура</div>
+                <div class="process-desc">Показываю макет и логику. Согласовываем — потом пишу код.</div>
+            </div>
+            <div class="process-card fade-in">
+                <div class="process-num">03</div>
+                <div class="process-title">Разработка</div>
+                <div class="process-desc">Верстаю, программирую, подключаю ботов.</div>
+            </div>
+            <div class="process-card fade-in">
+                <div class="process-num">04</div>
+                <div class="process-title">Запуск и поддержка</div>
+                <div class="process-desc">Публикую сайт, настраиваю домен и бота.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
+        <div class="stats-row">
+            <div class="stat-card fade-in">
+                <div class="stat-value">10+</div>
+                <div class="stat-label">Проектов</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Довольных клиентов</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-value">3-7</div>
+                <div class="stat-label">Дней на проект</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">На связи</div>
+            </div>
+        </div>
+    </section>
+
     <section class="section" id="pricing">
         <span class="section-tag">Стоимость</span>
-        <h2>Цены</h2>
-        <p class="section-desc">Ориентировочные пакеты. Точная цена — после обсуждения задачи.</p>
+        <h2>Прозрачные <span class="gradient">цены</span></h2>
+        <p class="section-desc">Ориентировочные пакеты. Точная цена — после брифа.</p>
         <div class="pricing-grid">
-            <div class="price-card">
+            <div class="price-card fade-in">
                 <div class="price-name">Визитка / Лендинг</div>
                 <div class="price-value">от 1000 <small>MDL</small></div>
                 <div class="price-desc">Небольшой сайт для услуги или человека</div>
@@ -607,6 +925,74 @@
                 </ul>
                 <a class="price-btn" id="priceBtn1" href="#">Заказать</a>
             </div>
-            <div class="price-card featured">
+            <div class="price-card featured fade-in">
                 <div class="price-badge">Популярное</div>
-                <div class="price-name">Магази
+                <div class="price-name">Магазин / Mini App</div>
+                <div class="price-value">от 2500 <small>MDL</small></div>
+                <div class="price-desc">Каталог, корзина, оформление заказа</div>
+                <ul class="price-list">
+                    <li>Каталог с категориями</li>
+                    <li>Корзина и заказ</li>
+                    <li>Интеграция с Telegram</li>
+                    <li>Запуск за 4-6 дней</li>
+                </ul>
+                <a class="price-btn" id="priceBtn2" href="#">Заказать</a>
+            </div>
+            <div class="price-card fade-in">
+                <div class="price-name">Под ключ</div>
+                <div class="price-value">от 5000 <small>MDL</small></div>
+                <div class="price-desc">Сайт + бот + поддержка</div>
+                <ul class="price-list">
+                    <li>Всё из магазина</li>
+                    <li>Telegram-бот</li>
+                    <li>Автоприём заказов</li>
+                    <li>Поддержка 1 месяц</li>
+                </ul>
+                <a class="price-btn" id="priceBtn3" href="#">Заказать</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="faq">
+        <span class="section-tag">Вопросы</span>
+        <h2>Частые <span class="gradient">вопросы</span></h2>
+        <div class="faq-list" style="margin-top: 30px;">
+            <div class="faq-item fade-in">
+                <div class="faq-q">Сколько стоит сайт?</div>
+                <div class="faq-a">От 1000 MDL за простой лендинг. Магазин — от 2500 MDL. Точная цена зависит от задачи.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-q">Сколько времени займёт?</div>
+                <div class="faq-a">Лендинг — 2-3 дня. Магазин — 4-6 дней. Большие проекты — 1-2 недели.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-q">Что нужно от меня?</div>
+                <div class="faq-a">Идея, тексты, фото. Если чего-то нет — помогу собрать или подберу.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-q">Сайт будет работать в Telegram?</div>
+                <div class="faq-a">Да. Могу сделать Mini App — сайт прямо в Telegram с корзиной и заказом.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-q">А если мне не понравится результат?</div>
+                <div class="faq-a">Вношу правки до тех пор, пока не понравится.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-box fade-in">
+            <h3>Готов сделать сайт,<br>который работает?</h3>
+            <p>Напиши мне — обсудим задачу, сроки и цену.</p>
+            <a class="btn-primary" id="ctaBtn" href="#">💬 Связаться</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">pitelicik</div>
+        <div>Веб-разработка · 2026</div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
